@@ -1,7 +1,9 @@
 package com.hoangfvi.luyentap.service;
 
 
+import com.hoangfvi.luyentap.model.Clazz;
 import com.hoangfvi.luyentap.model.Student;
+import com.hoangfvi.luyentap.repository.IClazzRepository;
 import com.hoangfvi.luyentap.repository.IStudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,9 @@ public class StudentService implements IStudentService {
 
     @Autowired
     private IStudentRepository studentRepository;
+
+    @Autowired
+    private IClazzRepository clazzRepository;
 
     @Override
     public Student save(Student student) {
@@ -50,4 +55,9 @@ public class StudentService implements IStudentService {
     public Page<Student> findAllByScoreGreaterThan8(Pageable pageable, Double score) {
         return studentRepository.findAllByScoreGreaterThan(pageable, score);
     }
+    public Page<Student> findAllByClassId(Pageable pageable,Long id) {
+        return studentRepository.findAllByClazz(pageable,clazzRepository.findById(id).get());
+    }
+
+
 }

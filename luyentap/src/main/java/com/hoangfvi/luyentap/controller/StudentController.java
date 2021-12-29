@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
+@CrossOrigin("*")
 @RequestMapping("/students")
 public class StudentController {
 
@@ -66,18 +67,6 @@ public class StudentController {
         student.setId(studentOptional.get().getId());
         return new ResponseEntity<>(studentService.save(student),HttpStatus.OK);
     }
-
-
-
-
-
-
-
-
-
-
-
-
     @GetMapping("/list-greater-8")
     public ModelAndView findList8(Pageable pageable) {
         Page<Student> studentList;
@@ -101,6 +90,25 @@ public class StudentController {
     public String edit(Student student) {
         studentService.save(student);
         return "redirect:/find";
+
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Student>> search(@RequestParam String q,Pageable pageable){
+        Page<Student> students = studentService.findAllByNameContaining(pageable,q);
+        if(students.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(students, HttpStatus.OK);
+
+    }
+    @GetMapping("/class/{id}")
+    public ResponseEntity<Page<Student>> findByClazz(Pageable pageable, @PathVariable Long id){
+        Page<Student> students = studentService.findAllByClassId(pageable,id);
+        if(students.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(students, HttpStatus.OK);
 
     }
 
