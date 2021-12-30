@@ -90,4 +90,18 @@ public class GooglePojo {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    @Override
+    public String toString() {
+        return "GooglePojo{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", verified_email=" + verified_email +
+                ", name='" + name + '\'' +
+                ", given_name='" + given_name + '\'' +
+                ", family_name='" + family_name + '\'' +
+                ", link='" + link + '\'' +
+                ", picture='" + picture + '\'' +
+                '}';
+    }
 }

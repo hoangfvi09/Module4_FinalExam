@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -103,19 +104,17 @@ public class AuthController {
             return "redirect:/login?google=error";
         }
         String accessToken = googleUtils.getToken(code);
-        System.out.println("abc"+accessToken);
         GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
-        System.out.println("abc"+googlePojo.getEmail());
         UserDetails userDetail = googleUtils.buildUser(googlePojo);
-        System.out.println("abc"+userDetail.getUsername());
-        User user = new User(userDetail.getUsername(),"abc",googlePojo.getEmail());
-        System.out.println("abc user" + user);
-        Role role1 = roleService.findByName("ROLE_USER");
-        Set<Role> roles1 = new HashSet<>();
-        roles1.add(role1);
-        System.out.println("role "+roles1);
-        user.setRoles(roles1);
-        userService.save(user);
+        Optional<User> userOptional = userService.findByUsername(userDetail.getUsername());
+        if (!userOptional.isPresent()) {
+            User user = new User(userDetail.getUsername(), "abc", googlePojo.getEmail());
+            Role role1 = roleService.findByName("ROLE_USER");
+            Set<Role> roles1 = new HashSet<>();
+            roles1.add(role1);
+            user.setRoles(roles1);
+            userService.save(user);
+        }
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
                 userDetail.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
