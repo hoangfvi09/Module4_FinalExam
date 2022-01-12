@@ -6,55 +6,55 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript">
-        function showCreateForm() {
-            let form = '<table>\n' +
-                '        <tr>\n' +
-                '            <td>name:</td>\n' +
-                '            <td><input type="text" id="name"></td>\n' +
-                '        </tr>\n' +
-                '        <tr>\n' +
-                '            <td>age:</td>\n' +
-                '            <td><input type="text" id="age"></td>\n' +
-                '        </tr>\n' +
-                '        <tr>\n' +
-                '            <td>score:</td>\n' +
-                '            <td><input type="text" id="score"></td>\n' +
-                '        </tr>\n' +
-                '        <select id="clazz">'
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/classes/",
-                success: function (data) {
-                    console.log(data)
-                    for (let i = 0; i < data.length; i++) {
-                        form += `<option value="${data[i].id}">${data[i].name}</option>`
-                    }
-                    form += '</select>' +
-                        '   <button onclick="saveStudent()">Add New Student</button>';
-                    document.getElementById("form").innerHTML = form;
-                }
-            })
-        }
+        // function showCreateForm() {
+        //     let form = '<table>\n' +
+        //         '        <tr>\n' +
+        //         '            <td>name:</td>\n' +
+        //         '            <td><input type="text" id="name"></td>\n' +
+        //         '        </tr>\n' +
+        //         '        <tr>\n' +
+        //         '            <td>age:</td>\n' +
+        //         '            <td><input type="text" id="age"></td>\n' +
+        //         '        </tr>\n' +
+        //         '        <tr>\n' +
+        //         '            <td>score:</td>\n' +
+        //         '            <td><input type="text" id="score"></td>\n' +
+        //         '        </tr>\n' +
+        //         '        <select id="country">'
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://localhost:8080/classes/",
+        //         success: function (data) {
+        //             console.log(data)
+        //             for (let i = 0; i < data.length; i++) {
+        //                 form += `<option value="${data[i].id}">${data[i].name}</option>`
+        //             }
+        //             form += '</select>' +
+        //                 '   <button onclick="saveStudent()">Add New Student</button>';
+        //             document.getElementById("form").innerHTML = form;
+        //         }
+        //     })
+        // }
 
         function saveStudent() {
             let name = $("#name").val();
             let score = $("#score").val();
             let age = $("#age").val();
-            let clazz = $("#clazz").val();
-            let student = {
+            let country = $("#country").val();
+            let city = {
                 name: name,
                 score: score,
                 age: age,
-                clazz: {
-                    id: clazz
+                country: {
+                    id: country
                 }
             }
-            console.log(student);
-            showStudentList();
+            console.log(city);
+            showCityList();
         }
 
 
-        function showStudentList() {
+        function showCityList() {
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
@@ -90,7 +90,7 @@
     </script>
 </head>
 <body>
-<button onclick="showStudentList()">Show List Student</button>
+<button onclick="showCityList()">Show List Student</button>
 <button onclick="showCreateForm()">Show Create Form</button>
 <div id="form">
 </div>

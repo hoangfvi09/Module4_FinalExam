@@ -1,12 +1,9 @@
 package com.hoangfvi.luyentap.controller;
 
-import com.hoangfvi.luyentap.model.Clazz;
-import com.hoangfvi.luyentap.model.Student;
-import com.hoangfvi.luyentap.service.IClazzService;
-import com.hoangfvi.luyentap.service.IStudentService;
+import com.hoangfvi.luyentap.model.Country;
+import com.hoangfvi.luyentap.service.ICountryService;
+import com.hoangfvi.luyentap.service.ICityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @CrossOrigin("*")
-@RequestMapping("/classes")
-public class ClazzController {
+@RequestMapping("/countries")
+public class CountryController {
     @Autowired
-    private IStudentService studentService;
+    private ICityService studentService;
 
     @Autowired
-    private IClazzService clazzService;
+    private ICountryService clazzService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Clazz>> findAll() {
-        Iterable<Clazz> classes =clazzService.findAll();
+    public ResponseEntity<Iterable<Country>> findAll() {
+        Iterable<Country> classes =clazzService.findAll();
         if(classes==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 

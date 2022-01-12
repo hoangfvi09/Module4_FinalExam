@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface IService<T> {
     T save(T t);
-    Page<T> findAll(Pageable pageable);
+    Iterable<T> findAll();
     Optional<T> findById(Long id);
     void remove(Long id);
-    Page<T> findAllByNameContaining(Pageable pageable, String name);
+
 }

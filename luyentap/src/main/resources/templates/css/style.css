@@ -1,0 +1,14 @@
+.logo, .banner, #nav, .content,.footer, .product{
+    border: 1px solid indianred;
+    border-radius: 5px;
+
+}
+.logo, .banner {
+    height: 150px;
+}
+.footer{
+    height: 50px;
+}
+.classbtn {
+    width: 100px;
+}
