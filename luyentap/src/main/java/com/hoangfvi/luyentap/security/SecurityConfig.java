@@ -61,11 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-//                .antMatchers("/login","login-google",
-//                        "/register","/error").permitAll()
-//                .antMatchers(HttpMethod.PUT,"/students/{id}").access(" hasRole('ROLE_ADMIN')")
-//                .antMatchers(HttpMethod.POST, "/students").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/login","login-google",
+                        "/register","/error").permitAll()
+                .antMatchers(HttpMethod.PUT,"/students/{id}").access(" hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.POST, "/students").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
